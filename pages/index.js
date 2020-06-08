@@ -1,19 +1,17 @@
 import Layout from "../components/layout";
+import Damp from "../components/damp";
+import Windfinder from "../components/windfinder";
+import Geomar from "../components/geomar";
 
 function IndexPage() {
   return (
     <Layout>
-      <div className="flex flex-col items-center justify-center">
-        <img
-          src="team-of-critters.svg"
-          className="w-full max-w-xl"
-          alt="Four one-eyed aliens playing"
-        />
-
-        <h2 className="p-3 my-8 text-lg font-bold bg-yellow-400 md:text-2xl">
-          Hi! Welcome to your first Next.js site.
-        </h2>
-      </div>
+      <h2>Damp</h2>
+      <Damp />
+      <hr className="m-2 border-black" />
+      <Geomar />
+      <hr className="m-2 border-black" />
+      <Windfinder url={'https://www.windfinder.com/report/kiel_leuchtturm'} />
     </Layout>
   );
 }

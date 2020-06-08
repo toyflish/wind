@@ -3,13 +3,11 @@ import Footer from "./footer";
 
 function Layout(props) {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <main className="flex-1 w-full max-w-4xl p-4 mx-auto md:px-8 md:py-16">
-        {props.children}
-      </main>
-      <Footer />
-    </div>
+    <main className="relative bg-black text-white">
+      <div className="absolute bg-white opacity-50 w-24 h-full right-0 top-0 z-10">
+      </div>
+      {props.children}
+    </main>
   );
 }
 
