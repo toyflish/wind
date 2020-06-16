@@ -1,6 +1,7 @@
-import { useContext, useState, useEffect } from "react"
+import { useContext } from "react"
 import {NavContext} from '../context/navContext'
 import Link from "next/link"
+import dynamic from 'next/dynamic'
 
 const pages = [
   {name: 'home', href: '/'},
@@ -10,11 +11,7 @@ function NavDrawer() {
   const [isOpen, setIsOpen] = useContext(NavContext)
   console.log("NavDrawer run", { isOpen });
 
-  const baseClassList = `nav-drawer fixed right-0 bg-white shadow z-20 h-full p-4 transform duration-300`
-  const [classList, setClassList] = useState( baseClassList )
-  useEffect(() => {
-    setClassList( `${baseClassList} ${ isOpen ? 'nav-drawer--open' : '' }`)
-  }, [isOpen])
+  const classList = `nav-drawer fixed right-0 bg-white shadow z-20 h-full p-4 transform duration-300 ${isOpen ? 'nav-drawer--open' : ''}`
 
   return (
     <div className={classList}>
@@ -41,4 +38,6 @@ function NavDrawer() {
   )
 }
 
-export default NavDrawer
+export default dynamic( () => (Promise.resolve(NavDrawer)) , {
+  ssr: false
+})
