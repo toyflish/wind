@@ -11,7 +11,7 @@ function IndexPage() {
       <hr className="m-2 border-black" />
       <Geomar />
       <hr className="m-2 border-black" />
-      <Windfinder url={'https://www.windfinder.com/report/kiel_leuchtturm'} />
+      <Windfinder url='https://www.windfinder.com/report/kiel_leuchtturm' />
     </Layout>
   );
 }
