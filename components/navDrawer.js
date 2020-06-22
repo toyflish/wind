@@ -19,8 +19,8 @@ function NavDrawer() {
       <nav className="relative">
         {pages.map(({name, href}) =>
           <div key={href} className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-            <Link href={href}>
-              <a className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">{name}</a>
+            <Link href={href} >
+              <a onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">{name}</a>
             </Link>
           </div>
         )}
