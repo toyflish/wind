@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 
 const pages = [
   {name: 'home', href: '/'},
+  {name: 'Viana do castelo', href: '/viana'},
   {name: 'Kellenhusen', href: '/kellenhusen'}
 ]
 function NavDrawer() {
