@@ -16,7 +16,7 @@ const Home: NextPage = () => {
 
       <main className="flex flex-col items-center justify-center flex-1 w-full text-center">
         <h1 className="text-6xl font-bold">
-          Viando do Castelo
+          Viana do Castelo
           <br />
           Wind
         </h1>
