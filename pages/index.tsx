@@ -31,6 +31,13 @@ const Home: NextPage = () => {
             height={250}
           />
         </div>
+        <h3 className="mt-4">Tide</h3>
+        <iframe
+          style={{ height: "500px" }}
+          className="w-full"
+          id="msw"
+          src="https://magicseaweed.com/Viana-do-Castelo-Surf-Report/188/"
+        />
       </main>
     </div>
   );
