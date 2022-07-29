@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import ImageClip from "../components/ImageClip";
+import Msw from "../components/Msw";
 
 const Home: NextPage = () => {
   const vianalocalsSrcWith = 1284;
@@ -31,13 +32,7 @@ const Home: NextPage = () => {
             height={250}
           />
         </div>
-        <h3 className="mt-4">Tide</h3>
-        <iframe
-          style={{ height: "500px" }}
-          className="w-full"
-          id="msw"
-          src="https://magicseaweed.com/Viana-do-Castelo-Surf-Report/188/"
-        />
+        <Msw />
       </main>
     </div>
   );
