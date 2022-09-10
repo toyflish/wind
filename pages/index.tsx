@@ -6,7 +6,9 @@ import Msw from "../components/Msw";
 const Home: NextPage = () => {
   const vianalocalsSrcWith = 1284;
   const chartDataWdith = 300;
-
+  const offset = 70;
+  const currentHour = new Date().getHours();
+  const xByHour = (800 / 24) * currentHour + offset;
   return (
     <div>
       <Head>
@@ -24,13 +26,8 @@ const Home: NextPage = () => {
         <ImageClip x={2} y={70} width={315} height={200} />
         <h3 className="mt-4">Chart</h3>
         <div className="flex flex-row">
-          <ImageClip x={2} y={500} width={60} height={250} />
-          <ImageClip
-            x={vianalocalsSrcWith - chartDataWdith}
-            y={500}
-            width={chartDataWdith}
-            height={250}
-          />
+          <ImageClip x={2} y={500} width={60} height={600} />
+          <ImageClip x={xByHour} y={500} width={chartDataWdith} height={600} />
         </div>
         <Msw />
       </main>
