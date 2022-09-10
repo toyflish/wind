@@ -4,11 +4,11 @@ import ImageClip from "../components/ImageClip";
 import Msw from "../components/Msw";
 
 const Home: NextPage = () => {
-  const vianalocalsSrcWith = 1284;
   const chartDataWdith = 300;
   const offset = 70;
   const currentHour = new Date().getHours();
-  const xByHour = (800 / 24) * currentHour + offset;
+  const xByHour = Math.round((800 / 24) * currentHour + offset);
+  console.log({ currentHour, xByHour });
   return (
     <div>
       <Head>
