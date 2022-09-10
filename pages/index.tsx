@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import ImageClip from "../components/ImageClip";
 import Msw from "../components/Msw";
@@ -6,9 +7,12 @@ import Msw from "../components/Msw";
 const Home: NextPage = () => {
   const chartDataWdith = 300;
   const offset = 70;
-  const currentHour = new Date().getHours();
-  const xByHour = Math.round((800 / 24) * currentHour + offset);
-  console.log({ currentHour, xByHour });
+  const [xByHour, setXByHour] = useState<number>(0);
+  useEffect(() => {
+    const currentHour = new Date().getHours();
+    setXByHour(Math.round((800 / 24) * currentHour + offset));
+    console.log({ currentHour, xByHour });
+  }, []);
   return (
     <div>
       <Head>
