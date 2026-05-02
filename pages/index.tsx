@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Head from "next/head";
 import ImageClip from "../components/ImageClip";
 import Webcam from "../components/Webcam";
@@ -29,11 +29,13 @@ const Home: NextPage = () => {
   const [xByHour, setXByHour] = useState<number>(0);
   const [imgSrc, setImgSrc] = useState<string>("");
   const [lastModified, setLastModified] = useState<Date | null>(null);
+  const [, setTick] = useState(0);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  const loadImage = useCallback(() => {
+    setLoading(true);
     const currentHour = new Date().getHours();
     setXByHour(Math.round((800 / 24) * (currentHour - 2) + offset));
-
     setImgSrc(`/api/weather-image?ver=${Date.now()}`);
 
     fetch("/api/weather-meta")
@@ -46,8 +48,22 @@ const Home: NextPage = () => {
           setLastModified(new Date(data.lastModified));
         }
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    loadImage();
+  }, [loadImage]);
+
+  // Tick every second to keep the "ago" counter live
+  useEffect(() => {
+    const interval = setInterval(() => setTick((t) => t + 1), 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const isStale =
+    lastModified && Date.now() - lastModified.getTime() > 60 * 1000;
 
   return (
     <div>
@@ -62,17 +78,35 @@ const Home: NextPage = () => {
           <br />
           Wind
         </h1>
-        {lastModified &&
-          (Date.now() - lastModified.getTime() > 5 * 60 * 1000 ? (
-            <p className="mt-2 px-3 py-1 text-sm text-orange-300 border border-orange-400/30 rounded bg-orange-900/20">
-              {formatTimeAgo(lastModified)}
-            </p>
+        {lastModified && (
+          Date.now() - lastModified.getTime() > 5 * 60 * 1000 ? (
+            <div className="mt-2 px-3 py-1 text-sm text-orange-300 border border-orange-400/30 rounded bg-orange-900/20 flex items-center gap-2">
+              <span>{formatTimeAgo(lastModified)}</span>
+              <button
+                onClick={loadImage}
+                disabled={loading}
+                className="px-2 py-0.5 text-xs rounded bg-orange-400/20 hover:bg-orange-400/40 disabled:opacity-50"
+              >
+                {loading ? "loading…" : "refresh"}
+              </button>
+            </div>
           ) : (
-            <p className="mt-2 text-sm text-gray-400">
-              Updated: {formatPortugalTime(lastModified)} (
-              {formatTimeAgo(lastModified)})
-            </p>
-          ))}
+            <div className="mt-2 text-sm text-gray-400 flex items-center gap-2">
+              <span>
+                Updated: {formatPortugalTime(lastModified)} ({formatTimeAgo(lastModified)})
+              </span>
+              {isStale && (
+                <button
+                  onClick={loadImage}
+                  disabled={loading}
+                  className="px-2 py-0.5 text-xs rounded bg-slate-600 hover:bg-slate-500 disabled:opacity-50"
+                >
+                  {loading ? "loading…" : "refresh"}
+                </button>
+              )}
+            </div>
+          )
+        )}
         {imgSrc && (
           <>
             <h3 className="mt-4">Wind</h3>
