@@ -63,9 +63,15 @@ const Home: NextPage = () => {
           Wind
         </h1>
         {lastModified && (
-          <p className="mt-2 text-sm text-gray-400">
-            Updated: {formatPortugalTime(lastModified)} ({formatTimeAgo(lastModified)})
-          </p>
+          Date.now() - lastModified.getTime() > 5 * 60 * 1000 ? (
+            <p className="mt-2 px-3 py-1 text-sm text-orange-300 border border-orange-400/30 rounded bg-orange-900/20">
+              {formatTimeAgo(lastModified)}
+            </p>
+          ) : (
+            <p className="mt-2 text-sm text-gray-400">
+              Updated: {formatPortugalTime(lastModified)} ({formatTimeAgo(lastModified)})
+            </p>
+          )
         )}
         {imgSrc && (
           <>
