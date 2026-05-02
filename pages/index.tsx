@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import ImageClip from "../components/ImageClip";
-import Msw from "../components/Msw";
+import Webcam from "../components/Webcam";
 
 function formatTimeAgo(date: Date): string {
   const totalSeconds = Math.floor((Date.now() - date.getTime()) / 1000);
@@ -78,7 +78,7 @@ const Home: NextPage = () => {
             </div>
           </>
         )}
-        <Msw />
+        <Webcam />
       </main>
     </div>
   );
