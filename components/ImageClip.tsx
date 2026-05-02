@@ -1,6 +1,3 @@
-const IMGWIDTH = 1284;
-const IMGHEIGHT = 1064;
-
 interface ImageClipProps {
   width: number;
   height: number;
@@ -8,7 +5,7 @@ interface ImageClipProps {
   y: number;
   originalWidth?: number;
   originalHeight?: number;
-  originalSrc?: string;
+  imgSrc: string;
 }
 
 export default function ImageClip({
@@ -18,7 +15,7 @@ export default function ImageClip({
   height,
   originalWidth = 1284,
   originalHeight = 1064,
-  originalSrc = "https://weather.vianalocals.com/ecowitt.png",
+  imgSrc,
 }: ImageClipProps) {
   const containerStyle = {
     position: "relative" as "relative",
@@ -36,7 +33,7 @@ export default function ImageClip({
   };
   return (
     <div style={containerStyle}>
-      <img src={originalSrc} style={style} />
+      <img src={imgSrc} style={style} />
     </div>
   );
 }

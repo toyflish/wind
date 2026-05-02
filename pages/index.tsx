@@ -4,15 +4,51 @@ import Head from "next/head";
 import ImageClip from "../components/ImageClip";
 import Msw from "../components/Msw";
 
+function formatTimeAgo(date: Date): string {
+  const totalSeconds = Math.floor((Date.now() - date.getTime()) / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  if (minutes === 0) return `${seconds}s ago`;
+  return `${minutes}m ${seconds}s ago`;
+}
+
+function formatPortugalTime(date: Date): string {
+  return date.toLocaleString("en-GB", {
+    timeZone: "Europe/Lisbon",
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
 const Home: NextPage = () => {
-  const chartDataWdith = 300;
+  const chartDataWidth = 300;
   const offset = 70;
   const [xByHour, setXByHour] = useState<number>(0);
+  const [imgSrc, setImgSrc] = useState<string>("");
+  const [lastModified, setLastModified] = useState<Date | null>(null);
+
   useEffect(() => {
     const currentHour = new Date().getHours();
     setXByHour(Math.round((800 / 24) * currentHour + offset));
-    console.log({ currentHour, xByHour });
+
+    setImgSrc(`/api/weather-image?ver=${Date.now()}`);
+
+    fetch("/api/weather-meta")
+      .then((res) => {
+        if (!res.ok) return null;
+        return res.json();
+      })
+      .then((data) => {
+        if (data?.lastModified) {
+          setLastModified(new Date(data.lastModified));
+        }
+      })
+      .catch(() => {});
   }, []);
+
   return (
     <div>
       <Head>
@@ -26,13 +62,22 @@ const Home: NextPage = () => {
           <br />
           Wind
         </h1>
-        <h3 className="mt-4">Wind</h3>
-        <ImageClip x={2} y={70} width={315} height={200} />
-        <h3 className="mt-4">Chart</h3>
-        <div className="flex flex-row">
-          <ImageClip x={2} y={500} width={60} height={600} />
-          <ImageClip x={xByHour} y={500} width={chartDataWdith} height={600} />
-        </div>
+        {lastModified && (
+          <p className="mt-2 text-sm text-gray-400">
+            Updated: {formatPortugalTime(lastModified)} ({formatTimeAgo(lastModified)})
+          </p>
+        )}
+        {imgSrc && (
+          <>
+            <h3 className="mt-4">Wind</h3>
+            <ImageClip x={2} y={70} width={315} height={200} imgSrc={imgSrc} />
+            <h3 className="mt-4">Chart</h3>
+            <div className="flex flex-row">
+              <ImageClip x={2} y={500} width={60} height={600} imgSrc={imgSrc} />
+              <ImageClip x={xByHour} y={500} width={chartDataWidth} height={600} imgSrc={imgSrc} />
+            </div>
+          </>
+        )}
         <Msw />
       </main>
     </div>
