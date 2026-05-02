@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 const UPSTREAM_URL = "https://weather.vianalocals.com/ecowitt.png";
 
 export default async function handler(
-  req: NextApiRequest,
+  _req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
