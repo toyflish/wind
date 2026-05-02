@@ -62,25 +62,37 @@ const Home: NextPage = () => {
           <br />
           Wind
         </h1>
-        {lastModified && (
-          Date.now() - lastModified.getTime() > 5 * 60 * 1000 ? (
+        {lastModified &&
+          (Date.now() - lastModified.getTime() > 5 * 60 * 1000 ? (
             <p className="mt-2 px-3 py-1 text-sm text-orange-300 border border-orange-400/30 rounded bg-orange-900/20">
               {formatTimeAgo(lastModified)}
             </p>
           ) : (
             <p className="mt-2 text-sm text-gray-400">
-              Updated: {formatPortugalTime(lastModified)} ({formatTimeAgo(lastModified)})
+              Updated: {formatPortugalTime(lastModified)} (
+              {formatTimeAgo(lastModified)})
             </p>
-          )
-        )}
+          ))}
         {imgSrc && (
           <>
             <h3 className="mt-4">Wind</h3>
             <ImageClip x={2} y={70} width={315} height={200} imgSrc={imgSrc} />
             <h3 className="mt-4">Chart</h3>
             <div className="flex flex-row">
-              <ImageClip x={2} y={500} width={60} height={600} imgSrc={imgSrc} />
-              <ImageClip x={xByHour} y={500} width={chartDataWidth} height={600} imgSrc={imgSrc} />
+              <ImageClip
+                x={2}
+                y={500}
+                width={48}
+                height={505}
+                imgSrc={imgSrc}
+              />
+              <ImageClip
+                x={xByHour}
+                y={500}
+                width={chartDataWidth}
+                height={505}
+                imgSrc={imgSrc}
+              />
             </div>
           </>
         )}
