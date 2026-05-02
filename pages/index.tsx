@@ -32,7 +32,7 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     const currentHour = new Date().getHours();
-    setXByHour(Math.round((800 / 24) * currentHour + offset));
+    setXByHour(Math.round((800 / 24) * (currentHour - 2) + offset));
 
     setImgSrc(`/api/weather-image?ver=${Date.now()}`);
 
