@@ -18,8 +18,6 @@ interface MergedPoint {
   direction: number;
 }
 
-const KMH_TO_KNOTS = 0.539957;
-
 function degToCompass(deg: number): string {
   const dirs = [
     "N","NNE","NE","ENE","E","ESE","SE","SSE",
@@ -79,13 +77,13 @@ export default function WindChart() {
         for (const p of d.wind) {
           const key = p.datetime;
           const entry = map.get(key) || { time: new Date(p.datetime) };
-          entry.wind = parseFloat(p.value) * KMH_TO_KNOTS;
+          entry.wind = parseFloat(p.value);
           map.set(key, entry);
         }
         for (const p of d.gust) {
           const key = p.datetime;
           const entry = map.get(key) || { time: new Date(p.datetime) };
-          entry.gust = parseFloat(p.value) * KMH_TO_KNOTS;
+          entry.gust = parseFloat(p.value);
           map.set(key, entry);
         }
         for (const p of d.direction) {
