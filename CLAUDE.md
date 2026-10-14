@@ -36,7 +36,7 @@ APDL timestamps are **Europe/Lisbon local time**, even when the history endpoint
 
 - **WindLive**: current wind, gust, and direction, with time since the last reading.
 - **WindChart** / **TideChart**: hand-drawn on `<canvas>` (no chart library), with hover tooltips.
-- **Webcam**: link to the Surfline cam embed, opened with no referrer.
+- **Webcam**: link to the feelviana.com webcam page. The Surfline embeds only load when the `Referer` is an allowlisted partner site such as feelviana.com, so linking to them directly returns a CloudFront 403.
 - **Layout**: global layout wrapper applied in `_app.tsx`.
 
 ### Legacy
